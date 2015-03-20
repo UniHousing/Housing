@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 20, 2014 5:46:17 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="edu.ncsu.gradiance.dao.Student" table="student" catalog="gradiance" optimistic-lock="version">
+        <id name="sid" type="string">
+            <column name="sid" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <property name="level" type="string">
+            <column name="level" length="10" />
+        </property>
+        <one-to-one name="ta" class="edu.ncsu.gradiance.dao.Ta"></one-to-one>
+        <set name="courses" table="stusecour" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="sid" length="50" not-null="true" />
+            </key>
+            <many-to-many entity-name="edu.ncsu.gradiance.dao.Course">
+                <column name="cid" length="50" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="attempts" table="attempt" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sid" length="50" not-null="true" />
+            </key>
+            <one-to-many class="edu.ncsu.gradiance.dao.Attempt" />
+        </set>
+        <set name="courses_1" table="courseta" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="sid" length="50" not-null="true" />
+            </key>
+            <many-to-many entity-name="edu.ncsu.gradiance.dao.Course">
+                <column name="cid" length="10" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

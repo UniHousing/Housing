@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 20, 2014 5:46:17 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="edu.ncsu.gradiance.dao.Answer" table="answer" catalog="gradiance" optimistic-lock="version">
+        <composite-id name="id" class="edu.ncsu.gradiance.dao.AnswerId">
+            <key-property name="qid" type="int">
+                <column name="qid" />
+            </key-property>
+            <key-property name="seed" type="int">
+                <column name="seed" />
+            </key-property>
+            <key-property name="ansid" type="int">
+                <column name="ansid" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="question" class="edu.ncsu.gradiance.dao.Question" update="false" insert="false" fetch="select">
+            <column name="qid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="seed" class="edu.ncsu.gradiance.dao.Seed" update="false" insert="false" fetch="select">
+            <column name="qid" not-null="true" />
+            <column name="seed" not-null="true" />
+        </many-to-one>
+        <property name="correct" type="java.lang.Integer">
+            <column name="correct" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="65535" />
+        </property>
+        <property name="expln" type="string">
+            <column name="expln" length="65535" />
+        </property>
+    </class>
+</hibernate-mapping>
